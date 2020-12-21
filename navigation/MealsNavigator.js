@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -17,6 +17,13 @@ import Colors from '../constants/Colors';
 const defaultNavigationOptions = {
   headerStyle: {
     backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
+  },
+  headerTitleStyle: {
+    fontFamily: 'padauk-bold',
+    fontSize: 18,
+  },
+  headerBackTitleStyle: {
+    fontFamily: 'padauk',
   },
   headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
 };
@@ -51,6 +58,12 @@ const tabScreenConfig = {
         <Ionicons name='ios-restaurant' size={25} color={tabInfo.tintColor} />
       ),
       tabBarColor: Colors.primaryColor,
+      tabBarLabel:
+        Platform.OS === 'android' ? (
+          <Text style={{ fontFamily: 'padauk-bold' }}>Meals</Text>
+        ) : (
+          'Meals'
+        ),
     },
   },
   Favorites: {
@@ -60,6 +73,12 @@ const tabScreenConfig = {
         <Ionicons name='ios-star' size={25} color={tabInfo.tintColor} />
       ),
       tabBarColor: Colors.accentColor,
+      tabBarLabel:
+        Platform.OS === 'android' ? (
+          <Text style={{ fontFamily: 'padauk-bold' }}>Favorites</Text>
+        ) : (
+          'Favorites'
+        ),
     },
   },
 };
@@ -75,6 +94,9 @@ const MealsFavTabNavigator =
       })
     : createBottomTabNavigator(tabScreenConfig, {
         tabBarOptions: {
+          labelStyle: {
+            fontFamily: 'padauk-bold',
+          },
           activeTintColor: Colors.accentColor,
         },
       });
